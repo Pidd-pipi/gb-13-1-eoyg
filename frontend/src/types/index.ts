@@ -60,7 +60,25 @@ export interface PurchaseRequest {
   status: 'active' | 'closed';
   requesterId: string;
   requester?: User;
+  pendingOfferCount?: number;
   createdAt: string;
+}
+
+export type OfferStatus = 'pending' | 'confirmed' | 'closed' | 'withdrawn' | 'expired';
+
+export interface PurchaseOffer {
+  id: string;
+  requestId: string;
+  sellerId: string;
+  seller?: User;
+  price: number;
+  condition: BookCondition;
+  pickupLocation: string;
+  expiresAt: string;
+  status: OfferStatus;
+  failureReason?: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type ReviewType = 'positive' | 'neutral' | 'negative';
@@ -105,4 +123,12 @@ export const categoryMap: Record<SubjectCategory, string> = {
   business: '经管',
   arts: '艺术',
   other: '其他',
+};
+
+export const offerStatusMap: Record<OfferStatus, string> = {
+  pending: '待选',
+  confirmed: '已确认',
+  closed: '已结束',
+  withdrawn: '已撤回',
+  expired: '已失效',
 };

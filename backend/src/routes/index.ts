@@ -16,9 +16,16 @@ import { toggleFavorite, getFavorites, getBrowsingHistory } from '../controllers
 import {
   createPurchaseRequest,
   getPurchaseRequests,
+  getPurchaseRequestById,
   getMyPurchaseRequests,
   closePurchaseRequest,
 } from '../controllers/purchaseRequest.controller';
+import {
+  submitOffer,
+  getOffers,
+  confirmOffer,
+  withdrawOffer,
+} from '../controllers/purchaseOffer.controller';
 import { sendMessage, getConversations, getMessages, getUnreadCount } from '../controllers/message.controller';
 import { createReview, getUserReviews as getUserReviewsPublic } from '../controllers/review.controller';
 
@@ -48,8 +55,13 @@ router.get('/browsing-history', authMiddleware, getBrowsingHistory);
 
 router.get('/purchase-requests', getPurchaseRequests);
 router.post('/purchase-requests', authMiddleware, createPurchaseRequest);
+router.get('/purchase-requests/:id', getPurchaseRequestById);
 router.get('/my/purchase-requests', authMiddleware, getMyPurchaseRequests);
 router.put('/purchase-requests/:id/close', authMiddleware, closePurchaseRequest);
+router.get('/purchase-requests/:id/offers', authMiddleware, getOffers);
+router.post('/purchase-requests/:id/offers', authMiddleware, submitOffer);
+router.post('/purchase-requests/:id/offers/:offerId/confirm', authMiddleware, confirmOffer);
+router.put('/purchase-requests/:id/offers/:offerId/withdraw', authMiddleware, withdrawOffer);
 
 router.post('/messages', authMiddleware, upload.array('images', 5), sendMessage);
 router.get('/messages/conversations', authMiddleware, getConversations);

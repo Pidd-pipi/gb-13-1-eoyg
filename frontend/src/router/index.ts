@@ -45,6 +45,11 @@ const routes = [
     component: () => import('@/pages/PurchaseRequests.vue'),
   },
   {
+    path: '/purchase-requests/:id',
+    name: 'PurchaseRequestDetail',
+    component: () => import('@/pages/PurchaseRequestDetail.vue'),
+  },
+  {
     path: '/messages',
     name: 'Messages',
     component: () => import('@/pages/Messages.vue'),

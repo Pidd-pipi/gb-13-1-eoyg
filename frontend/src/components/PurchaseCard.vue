@@ -15,7 +15,10 @@
       <span>新旧要求：{{ request.conditions.join('、') }}</span>
     </div>
     <div class="purchase-footer">
-      <span>{{ categoryMap[request.category] }} · {{ request.campus }}</span>
+      <div class="footer-left">
+        <span>{{ categoryMap[request.category] }} · {{ request.campus }}</span>
+        <span v-if="request.pendingOfferCount" class="offer-count">报价 {{ request.pendingOfferCount }}</span>
+      </div>
       <div class="requester" v-if="request.requester">
         <van-icon name="user-o" size="12" />
         <span>{{ request.requester.name || request.requester.department || '匿名' }}</span>
@@ -39,6 +42,7 @@ defineProps<{
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 .purchase-header {
   display: flex;
@@ -69,6 +73,18 @@ defineProps<{
   border-top: 1px solid #f0f0f0;
   font-size: 12px;
   color: #999;
+}
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.offer-count {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  background: #e6f7ff;
+  color: #1890ff;
 }
 .requester {
   display: flex;

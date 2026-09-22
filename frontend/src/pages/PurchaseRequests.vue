@@ -17,6 +17,7 @@
         v-for="item in requests"
         :key="item.id"
         :request="item"
+        @click="goDetail(item.id)"
       />
       <van-empty v-else description="暂无求购信息" />
     </div>
@@ -63,6 +64,10 @@ const fetchRequests = async () => {
 
 const goPublish = () => {
   router.push('/publish-request');
+};
+
+const goDetail = (id: string) => {
+  router.push(`/purchase-requests/${id}`);
 };
 
 watch(() => filters.category, fetchRequests);
