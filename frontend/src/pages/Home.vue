@@ -57,6 +57,7 @@
             v-for="item in purchaseRequests"
             :key="item.id"
             :request="item"
+            @click="goRequestDetail(item.id)"
           />
           <van-empty v-else description="暂无求购信息" />
         </div>
@@ -139,6 +140,10 @@ const goPublishRequest = () => {
     return;
   }
   router.push('/publish-request');
+};
+
+const goRequestDetail = (id: string) => {
+  router.push(`/purchase-request/${id}`);
 };
 
 onMounted(() => {

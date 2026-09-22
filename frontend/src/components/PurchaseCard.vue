@@ -1,5 +1,5 @@
 <template>
-  <div class="purchase-card">
+  <div class="purchase-card" @click="$emit('click')">
     <div class="purchase-header">
       <div class="purchase-title">{{ request.bookTitle }}</div>
       <van-tag v-if="request.status === 'active'" type="primary">求购中</van-tag>
@@ -21,6 +21,14 @@
         <span>{{ request.requester.name || request.requester.department || '匿名' }}</span>
       </div>
     </div>
+    <div class="purchase-offers">
+      <van-icon name="balance-list-o" size="13" />
+      <span>
+        {{ request.status === 'active' ? '待选报价' : '报价' }}
+        {{ request.pendingOfferCount ?? 0 }} 条
+      </span>
+      <van-icon name="arrow" size="12" class="arrow" />
+    </div>
   </div>
 </template>
 
@@ -30,6 +38,10 @@ import { categoryMap } from '@/types';
 
 defineProps<{
   request: PurchaseRequest;
+}>();
+
+defineEmits<{
+  (e: 'click'): void;
 }>();
 </script>
 
@@ -74,5 +86,19 @@ defineProps<{
   display: flex;
   align-items: center;
   gap: 4px;
+}
+.purchase-offers {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
+  font-size: 12px;
+  color: #1989fa;
+}
+.purchase-offers .arrow {
+  margin-left: auto;
+  color: #c8c9cc;
 }
 </style>
